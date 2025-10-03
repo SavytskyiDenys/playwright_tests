@@ -1,3 +1,6 @@
+import pytest
+
+@pytest.mark.playwright
 def test_should_create_bug_report(api_request_context: APIRequestContext) -> None:
     data = {
         "title": "[Bug] report 1",
@@ -17,7 +20,7 @@ def test_should_create_bug_report(api_request_context: APIRequestContext) -> Non
     assert issue
     assert issue["body"] == "Bug description"
 
-
+@pytest.mark.playwright
 def test_should_create_feature_request(api_request_context: APIRequestContext) -> None:
     data = {
         "title": "[Feature] request 1",

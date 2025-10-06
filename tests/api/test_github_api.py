@@ -35,8 +35,12 @@ def test_emoji_list_retrieved(github_api):
     assert 'crossed_fingers' in r.json()
 
 @pytest.mark.api
-def test_list_of_commits_retrieved(github_api):
+def test_list_of_commits_retrieved_exist_repo(github_api):
     r = github_api.get_commits_of_public_repo('SavytskyiDenys', 'playwright_tests')
     assert r is not None
-    #assert 'Denys Savytskyi' in r[0]['commit']["author"]
-    print(r)
+    assert 'Denys Savytskyi' in r[0]['commit']['author']['name']
+
+@pytest.mark.api
+def test_list_of_commits_not_retrieved_non_exist_repo(github_api):
+    r = github_api.get_commits_of_public_repo('SavytskyiDenys','11111')
+    assert r['status'] == "404"
